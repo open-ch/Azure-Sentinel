@@ -12,19 +12,14 @@ This reference documentation provides detailed information about data connectors
 
 ## Overview
 
-This documentation covers **477 Microsoft Sentinel solutions**, including **369 solutions with data connectors**, providing access to **503 unique connectors** and **811 unique tables**. Additionally, **108 solutions without data connectors** are documented (these may contain analytics rules, workbooks, hunting queries, or playbooks).
+This documentation covers **478 solutions** with data connectors, providing access to **462 unique connectors** and **740 unique tables**.
 
 ### Quick Statistics
 
 | Metric | Count |
 |--------|-------|
-| Total Solutions | 477 |
-| Solutions with Data Connectors | 369 |
-| Solutions without Data Connectors | 108 |
-| Unique Connectors | 503 |
-| Unique Tables | 811 |
-
-## How This Documentation is Organized\n\nEach solution has its own page containing:
+| Total Solutions | 478 |
+| Unique Connectors | 462 |\n| Unique Tables | 740 |\n\n## How This Documentation is Organized\n\nEach solution has its own page containing:
 
 - **Solution Overview**: Publisher, support information, and categories
 - **Connectors**: List of all connectors in the solution
@@ -272,7 +267,7 @@ Browse solutions alphabetically:
 | [Google Cloud Platform Cloud Monitoring](solutions/google-cloud-platform-cloud-monitoring.md) | 2022-07-01 | Microsoft Corporation |
 | [Google Cloud Platform Cloud Run](solutions/google-cloud-platform-cloud-run.md) | 2021-07-30 | Microsoft Corporation |
 | [Google Cloud Platform Compute Engine](solutions/google-cloud-platform-compute-engine.md) | 2022-07-07 | Microsoft Corporation |
-| [Google Cloud Platform Firewall Logs](solutions/google-cloud-platform-firewall-logs.md) | 2024-11-03 | Microsoft Corporation |
+| [Google Cloud Platform Firewall Logs](solutions/google-cloud-platform-firewall-logs.md) |  |  |
 | [Google Cloud Platform Load Balancer Logs](solutions/google-cloud-platform-load-balancer-logs.md) | 2025-02-12 | Microsoft Corporation |
 | [Google Cloud Platform Security Command Center](solutions/google-cloud-platform-security-command-center.md) | 2023-09-11 | Microsoft Corporation |
 | [Google Cloud Platform VPC Flow Logs](solutions/google-cloud-platform-vpc-flow-logs.md) | 2025-02-12 | Microsoft Corporation |
@@ -507,6 +502,7 @@ Browse solutions alphabetically:
 | [SIGNL4](solutions/signl4.md) | 2021-12-10 | Derdack |
 | [SINEC Security Guard](solutions/sinec-security-guard.md) | 2024-07-15 | Siemens AG |
 | [SOC Handbook](solutions/soc-handbook.md) | 2022-11-30 | Community |
+| [SOC Prime CCF](solutions/soc-prime-ccf.md) | 2025-09-25 | SOC Prime |
 | [SOC-Process-Framework](solutions/soc-process-framework.md) | 2022-04-08 | Microsoft Corporation |
 | [SailPointIdentityNow](solutions/sailpointidentitynow.md) | 2021-10-26 | SailPoint |
 | [SalemCyber](solutions/salemcyber.md) | 2023-07-21 | Salem Cyber |

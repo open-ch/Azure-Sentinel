@@ -784,7 +784,7 @@
               "command": [
                 "sh",
                 "-c",
-                "[concat('cat > /config/config.yaml << ''EOT''\n', variables('otelConfig'), '\nEOT\necho \"Generated OTel config:\"\ncat /config/config.yaml')]"
+                "[concat('printf ''%b'' ''', variables('otelConfig'), ''' > /config/config.yaml && echo \"Generated OTel config:\" && cat /config/config.yaml')]"
               ],
               "volumeMounts": [
                 {

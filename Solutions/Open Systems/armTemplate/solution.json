@@ -258,11 +258,27 @@
                         "type": "datetime"
                     },
                     {
-                        "name": "RawData",
+                        "name": "login",
+                        "type": "string"
+                    },
+                    {
+                        "name": "remoteAddress",
+                        "type": "dynamic"
+                    },
+                    {
+                        "name": "result",
+                        "type": "string"
+                    },
+                    {
+                        "name": "event_time",
+                        "type": "datetime"
+                    },
+                    {
+                        "name": "error",
                         "type": "string"
                     }
                 ],
-                "transformKql": "source | extend data = parse_json(RawData) | extend TimeGenerated = todatetime(data.event_time), login = tostring(data.login), remoteAddress = data.remoteAddress, result = tostring(data.result), event_time = todatetime(data.event_time), error = tostring(data.error) | project TimeGenerated, login, remoteAddress, result, event_time, error"
+                "transformKql": "source | extend TimeGenerated = todatetime(event_time)"
             },
             {
                 "name": "Proxy",

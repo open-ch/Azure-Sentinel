@@ -162,15 +162,11 @@
             "type": "datetime"
           },
           {
-            "name": "timestamp",
-            "type": "datetime"
-          },
-          {
-            "name": "message",
-            "type": "dynamic"
+            "name": "RawData",
+            "type": "string"
           }
         ],
-        "transformKql": "source | extend TimeGenerated = todatetime(timestamp)"
+        "transformKql": "source | extend data = parse_json(RawData) | extend TimeGenerated = todatetime(data.timestamp), timestamp = todatetime(data.timestamp), message = data.message | project TimeGenerated, timestamp, message"
       },
       {
         "name": "Mail",
@@ -181,15 +177,11 @@
             "type": "datetime"
           },
           {
-            "name": "timestamp",
-            "type": "datetime"
-          },
-          {
-            "name": "message",
-            "type": "dynamic"
+            "name": "RawData",
+            "type": "string"
           }
         ],
-        "transformKql": "source | extend TimeGenerated = todatetime(timestamp)"
+        "transformKql": "source | extend data = parse_json(RawData) | extend TimeGenerated = todatetime(data.timestamp), timestamp = todatetime(data.timestamp), message = data.message | project TimeGenerated, timestamp, message"
       },
       {
         "name": "Ztna",
@@ -200,63 +192,11 @@
             "type": "datetime"
           },
           {
-            "name": "authority_name",
-            "type": "string"
-          },
-          {
-            "name": "message",
-            "type": "string"
-          },
-          {
-            "name": "message_type",
-            "type": "string"
-          },
-          {
-            "name": "object_name",
-            "type": "string"
-          },
-          {
-            "name": "object_name_portal",
-            "type": "string"
-          },
-          {
-            "name": "remote_address",
-            "type": "string"
-          },
-          {
-            "name": "status",
-            "type": "string"
-          },
-          {
-            "name": "subject_name",
-            "type": "string"
-          },
-          {
-            "name": "timestamp",
-            "type": "string"
-          },
-          {
-            "name": "uuid",
-            "type": "string"
-          },
-          {
-            "name": "ztna_tenant",
-            "type": "string"
-          },
-          {
-            "name": "ztna_upstream",
-            "type": "string"
-          },
-          {
-            "name": "action",
-            "type": "string"
-          },
-          {
-            "name": "result",
+            "name": "RawData",
             "type": "string"
           }
         ],
-        "transformKql": "source | extend TimeGenerated = todatetime(timestamp)"
+        "transformKql": "source | extend data = parse_json(RawData) | extend TimeGenerated = todatetime(data.timestamp), authority_name = tostring(data.authority_name), message = tostring(data.message), message_type = tostring(data.message_type), object_name = tostring(data.object_name), object_name_portal = tostring(data.object_name_portal), remote_address = tostring(data.remote_address), status = tostring(data.status), subject_name = tostring(data.subject_name), timestamp = tostring(data.timestamp), uuid = tostring(data.uuid), ztna_tenant = tostring(data.ztna_tenant), ztna_upstream = tostring(data.ztna_upstream), action = tostring(data.action), result = tostring(data.result) | project TimeGenerated, authority_name, message, message_type, object_name, object_name_portal, remote_address, status, subject_name, timestamp, uuid, ztna_tenant, ztna_upstream, action, result"
       },
       {
         "name": "Firewall",
@@ -267,51 +207,11 @@
             "type": "datetime"
           },
           {
-            "name": "action",
-            "type": "string"
-          },
-          {
-            "name": "host_name",
-            "type": "string"
-          },
-          {
-            "name": "iface_in",
-            "type": "string"
-          },
-          {
-            "name": "iface_out",
-            "type": "string"
-          },
-          {
-            "name": "ip_dst",
-            "type": "string"
-          },
-          {
-            "name": "ip_src",
-            "type": "string"
-          },
-          {
-            "name": "port_dst",
-            "type": "int"
-          },
-          {
-            "name": "port_src",
-            "type": "int"
-          },
-          {
-            "name": "timestamp",
-            "type": "int"
-          },
-          {
-            "name": "zone_dst",
-            "type": "string"
-          },
-          {
-            "name": "zone_src",
+            "name": "RawData",
             "type": "string"
           }
         ],
-        "transformKql": "source | extend TimeGenerated = datetime_add('second', timestamp, datetime(1970-01-01))"
+        "transformKql": "source | extend data = parse_json(RawData) | extend TimeGenerated = datetime_add('second', toint(data.timestamp), datetime(1970-01-01)), action = tostring(data.action), host_name = tostring(data.host_name), iface_in = tostring(data.iface_in), iface_out = tostring(data.iface_out), ip_dst = tostring(data.ip_dst), ip_src = tostring(data.ip_src), port_dst = toint(data.port_dst), port_src = toint(data.port_src), timestamp = toint(data.timestamp), zone_dst = tostring(data.zone_dst), zone_src = tostring(data.zone_src) | project TimeGenerated, action, host_name, iface_in, iface_out, ip_dst, ip_src, port_dst, port_src, timestamp, zone_dst, zone_src"
       },
       {
         "name": "Authentication",
@@ -322,27 +222,11 @@
             "type": "datetime"
           },
           {
-            "name": "login",
-            "type": "string"
-          },
-          {
-            "name": "remoteAddress",
-            "type": "dynamic"
-          },
-          {
-            "name": "result",
-            "type": "string"
-          },
-          {
-            "name": "event_time",
-            "type": "datetime"
-          },
-          {
-            "name": "error",
+            "name": "RawData",
             "type": "string"
           }
         ],
-        "transformKql": "source | extend TimeGenerated = todatetime(event_time)"
+        "transformKql": "source | extend data = parse_json(RawData) | extend TimeGenerated = todatetime(data.event_time), login = tostring(data.login), remoteAddress = data.remoteAddress, result = tostring(data.result), event_time = todatetime(data.event_time), error = tostring(data.error) | project TimeGenerated, login, remoteAddress, result, event_time, error"
       },
       {
         "name": "Proxy",
@@ -353,139 +237,11 @@
             "type": "datetime"
           },
           {
-            "name": "casb_application",
-            "type": "string"
-          },
-          {
-            "name": "casb_category",
-            "type": "string"
-          },
-          {
-            "name": "casb_operation",
-            "type": "string"
-          },
-          {
-            "name": "casb_risk_score",
-            "type": "string"
-          },
-          {
-            "name": "client_ip",
-            "type": "string"
-          },
-          {
-            "name": "client_request_size",
-            "type": "string"
-          },
-          {
-            "name": "client_response_size",
-            "type": "string"
-          },
-          {
-            "name": "client_response_status",
-            "type": "string"
-          },
-          {
-            "name": "content_type",
-            "type": "string"
-          },
-          {
-            "name": "duration",
-            "type": "string"
-          },
-          {
-            "name": "error_details",
-            "type": "string"
-          },
-          {
-            "name": "http_method",
-            "type": "string"
-          },
-          {
-            "name": "server_ip",
-            "type": "string"
-          },
-          {
-            "name": "server_response_size",
-            "type": "string"
-          },
-          {
-            "name": "time_dns",
-            "type": "string"
-          },
-          {
-            "name": "time_icap",
-            "type": "string"
-          },
-          {
-            "name": "time_server",
-            "type": "string"
-          },
-          {
-            "name": "timestamp",
-            "type": "real"
-          },
-          {
-            "name": "tls_cert_errors",
-            "type": "string"
-          },
-          {
-            "name": "tls_client_cipher",
-            "type": "string"
-          },
-          {
-            "name": "tls_client_max_version",
-            "type": "string"
-          },
-          {
-            "name": "tls_client_version",
-            "type": "string"
-          },
-          {
-            "name": "tls_server_cipher",
-            "type": "string"
-          },
-          {
-            "name": "tls_server_max_version",
-            "type": "string"
-          },
-          {
-            "name": "tls_server_version",
-            "type": "string"
-          },
-          {
-            "name": "url",
-            "type": "string"
-          },
-          {
-            "name": "url_filter_action",
-            "type": "string"
-          },
-          {
-            "name": "url_filter_categories",
-            "type": "string"
-          },
-          {
-            "name": "url_filter_result",
-            "type": "string"
-          },
-          {
-            "name": "user_agent",
-            "type": "string"
-          },
-          {
-            "name": "user_id",
-            "type": "string"
-          },
-          {
-            "name": "host_id",
-            "type": "string"
-          },
-          {
-            "name": "referer",
+            "name": "RawData",
             "type": "string"
           }
         ],
-        "transformKql": "source | extend TimeGenerated = datetime_add('second', tolong(timestamp), datetime(1970-01-01))"
+        "transformKql": "source | extend data = parse_json(RawData) | extend TimeGenerated = datetime_add('second', tolong(data.timestamp), datetime(1970-01-01)), casb_application = tostring(data.casb_application), casb_category = tostring(data.casb_category), casb_operation = tostring(data.casb_operation), casb_risk_score = tostring(data.casb_risk_score), client_ip = tostring(data.client_ip), client_request_size = tostring(data.client_request_size), client_response_size = tostring(data.client_response_size), client_response_status = tostring(data.client_response_status), content_type = tostring(data.content_type), duration = tostring(data.duration), error_details = tostring(data.error_details), http_method = tostring(data.http_method), server_ip = tostring(data.server_ip), server_response_size = tostring(data.server_response_size), time_dns = tostring(data.time_dns), time_icap = tostring(data.time_icap), time_server = tostring(data.time_server), timestamp = toreal(data.timestamp), tls_cert_errors = tostring(data.tls_cert_errors), tls_client_cipher = tostring(data.tls_client_cipher), tls_client_max_version = tostring(data.tls_client_max_version), tls_client_version = tostring(data.tls_client_version), tls_server_cipher = tostring(data.tls_server_cipher), tls_server_max_version = tostring(data.tls_server_max_version), tls_server_version = tostring(data.tls_server_version), url = tostring(data.url), url_filter_action = tostring(data.url_filter_action), url_filter_categories = tostring(data.url_filter_categories), url_filter_result = tostring(data.url_filter_result), user_agent = tostring(data.user_agent), user_id = tostring(data.user_id), host_id = tostring(data.host_id), referer = tostring(data.referer) | project TimeGenerated, casb_application, casb_category, casb_operation, casb_risk_score, client_ip, client_request_size, client_response_size, client_response_status, content_type, duration, error_details, http_method, server_ip, server_response_size, time_dns, time_icap, time_server, timestamp, tls_cert_errors, tls_client_cipher, tls_client_max_version, tls_client_version, tls_server_cipher, tls_server_max_version, tls_server_version, url, url_filter_action, url_filter_categories, url_filter_result, user_agent, user_id, host_id, referer"
       }
     ],
     "proxyReceiverConf": "[if(parameters('secureWebGateway'), '  kafka/proxy:\\n    brokers:\\n      - ${LOGS_API_ENDPOINT}\\n    protocol_version: \"1.0.0\"\\n    auth:\\n      sasl:\\n        mechanism: PLAIN\\n        username: $$ConnectionString\\n        password: ${LOGS_API_STRING};EntityPath=proxy\\n    tls:\\n      insecure: false\\n    logs:\\n      topics:\\n        - proxy\\n      encoding: json\\n    group_id: $$Default\\n    initial_offset: earliest\\n    client_id: sentinel-connector-proxy\\n    autocommit:\\n      enable: false\\n    message_marking:\\n      after: true\\n', '')]",
@@ -494,22 +250,29 @@
     "ztnaReceiverConf": "[if(parameters('zeroTrustNetworkAccess'), '  kafka/ztna:\\n    brokers:\\n      - ${LOGS_API_ENDPOINT}\\n    protocol_version: \"1.0.0\"\\n    auth:\\n      sasl:\\n        mechanism: PLAIN\\n        username: $$ConnectionString\\n        password: ${LOGS_API_STRING};EntityPath=ztna\\n    tls:\\n      insecure: false\\n    logs:\\n      topics:\\n        - ztna\\n      encoding: json\\n    group_id: $$Default\\n    initial_offset: earliest\\n    client_id: sentinel-connector-ztna\\n    autocommit:\\n      enable: false\\n    message_marking:\\n      after: true\\n', '')]",
     "mailReceiverConf": "[if(parameters('secureE-MailGateway'), '  kafka/mail:\\n    brokers:\\n      - ${LOGS_API_ENDPOINT}\\n    protocol_version: \"1.0.0\"\\n    auth:\\n      sasl:\\n        mechanism: PLAIN\\n        username: $$ConnectionString\\n        password: ${LOGS_API_STRING};EntityPath=mail\\n    tls:\\n      insecure: false\\n    logs:\\n      topics:\\n        - mail\\n      encoding: json\\n    group_id: $$Default\\n    initial_offset: earliest\\n    client_id: sentinel-connector-mail\\n    autocommit:\\n      enable: false\\n    message_marking:\\n      after: true\\n', '')]",
     "zeekReceiverConf": "[if(parameters('intrusionDetectionSystem'), '  kafka/zeek:\\n    brokers:\\n      - ${LOGS_API_ENDPOINT}\\n    protocol_version: \"1.0.0\"\\n    auth:\\n      sasl:\\n        mechanism: PLAIN\\n        username: $$ConnectionString\\n        password: ${LOGS_API_STRING};EntityPath=zeek\\n    tls:\\n      insecure: false\\n    logs:\\n      topics:\\n        - zeek\\n      encoding: json\\n    group_id: $$Default\\n    initial_offset: earliest\\n    client_id: sentinel-connector-zeek\\n    autocommit:\\n      enable: false\\n    message_marking:\\n      after: true\\n', '')]",
-    "proxyExporterConf": "[if(parameters('secureWebGateway'), '  azureloganalytics/proxy:\\n    endpoint: ${DCR_ENDPOINT}\\n    client_id: ${CLIENT_ID}\\n    client_secret: ${CLIENT_SECRET}\\n    tenant_id: ${TENANT_ID}\\n    rule_id: ${PROXY_DCR_ID}\\n    stream_name: ${PROXY_DCR_STREAM}\\n    sending_queue:\\n      enabled: false\\n', '')]",
-    "authExporterConf": "[if(parameters('identity'), '  azureloganalytics/auth:\\n    endpoint: ${DCR_ENDPOINT}\\n    client_id: ${CLIENT_ID}\\n    client_secret: ${CLIENT_SECRET}\\n    tenant_id: ${TENANT_ID}\\n    rule_id: ${AUTH_DCR_ID}\\n    stream_name: ${AUTH_DCR_STREAM}\\n    sending_queue:\\n      enabled: false\\n', '')]",
-    "firewallExporterConf": "[if(parameters('firewall'), '  azureloganalytics/firewall:\\n    endpoint: ${DCR_ENDPOINT}\\n    client_id: ${CLIENT_ID}\\n    client_secret: ${CLIENT_SECRET}\\n    tenant_id: ${TENANT_ID}\\n    rule_id: ${FIREWALL_DCR_ID}\\n    stream_name: ${FIREWALL_DCR_STREAM}\\n    sending_queue:\\n      enabled: false\\n', '')]",
-    "ztnaExporterConf": "[if(parameters('zeroTrustNetworkAccess'), '  azureloganalytics/ztna:\\n    endpoint: ${DCR_ENDPOINT}\\n    client_id: ${CLIENT_ID}\\n    client_secret: ${CLIENT_SECRET}\\n    tenant_id: ${TENANT_ID}\\n    rule_id: ${ZTNA_DCR_ID}\\n    stream_name: ${ZTNA_DCR_STREAM}\\n    sending_queue:\\n      enabled: false\\n', '')]",
-    "mailExporterConf": "[if(parameters('secureE-MailGateway'), '  azureloganalytics/mail:\\n    endpoint: ${DCR_ENDPOINT}\\n    client_id: ${CLIENT_ID}\\n    client_secret: ${CLIENT_SECRET}\\n    tenant_id: ${TENANT_ID}\\n    rule_id: ${MAIL_DCR_ID}\\n    stream_name: ${MAIL_DCR_STREAM}\\n    sending_queue:\\n      enabled: false\\n', '')]",
-    "zeekExporterConf": "[if(parameters('intrusionDetectionSystem'), '  azureloganalytics/zeek:\\n    endpoint: ${DCR_ENDPOINT}\\n    client_id: ${CLIENT_ID}\\n    client_secret: ${CLIENT_SECRET}\\n    tenant_id: ${TENANT_ID}\\n    rule_id: ${ZEEK_DCR_ID}\\n    stream_name: ${ZEEK_DCR_STREAM}\\n    sending_queue:\\n      enabled: false\\n', '')]",
-    "proxyPipelineConf": "[if(parameters('secureWebGateway'), '    logs/proxy:\\n      receivers: [kafka/proxy]\\n      exporters: [azureloganalytics/proxy]\\n', '')]",
-    "authPipelineConf": "[if(parameters('identity'), '    logs/auth:\\n      receivers: [kafka/auth]\\n      exporters: [azureloganalytics/auth]\\n', '')]",
-    "firewallPipelineConf": "[if(parameters('firewall'), '    logs/firewall:\\n      receivers: [kafka/firewall]\\n      exporters: [azureloganalytics/firewall]\\n', '')]",
-    "ztnaPipelineConf": "[if(parameters('zeroTrustNetworkAccess'), '    logs/ztna:\\n      receivers: [kafka/ztna]\\n      exporters: [azureloganalytics/ztna]\\n', '')]",
-    "mailPipelineConf": "[if(parameters('secureE-MailGateway'), '    logs/mail:\\n      receivers: [kafka/mail]\\n      exporters: [azureloganalytics/mail]\\n', '')]",
-    "zeekPipelineConf": "[if(parameters('intrusionDetectionSystem'), '    logs/zeek:\\n      receivers: [kafka/zeek]\\n      exporters: [azureloganalytics/zeek]\\n', '')]",
+    "proxyExporterConf": "[if(parameters('secureWebGateway'), '  azureloganalytics/proxy:\\n    endpoint: ${DCR_ENDPOINT}\\n    client_id: ${CLIENT_ID}\\n    client_secret: ${CLIENT_SECRET}\\n    tenant_id: ${TENANT_ID}\\n    rule_id: ${PROXY_DCR_ID}\\n    stream_name: ${PROXY_DCR_STREAM}\\n    raw_log_field: body\\n    sending_queue:\\n      enabled: false\\n', '')]",
+    "authExporterConf": "[if(parameters('identity'), '  azureloganalytics/auth:\\n    endpoint: ${DCR_ENDPOINT}\\n    client_id: ${CLIENT_ID}\\n    client_secret: ${CLIENT_SECRET}\\n    tenant_id: ${TENANT_ID}\\n    rule_id: ${AUTH_DCR_ID}\\n    stream_name: ${AUTH_DCR_STREAM}\\n    raw_log_field: body\\n    sending_queue:\\n      enabled: false\\n', '')]",
+    "firewallExporterConf": "[if(parameters('firewall'), '  azureloganalytics/firewall:\\n    endpoint: ${DCR_ENDPOINT}\\n    client_id: ${CLIENT_ID}\\n    client_secret: ${CLIENT_SECRET}\\n    tenant_id: ${TENANT_ID}\\n    rule_id: ${FIREWALL_DCR_ID}\\n    stream_name: ${FIREWALL_DCR_STREAM}\\n    raw_log_field: body\\n    sending_queue:\\n      enabled: false\\n', '')]",
+    "ztnaExporterConf": "[if(parameters('zeroTrustNetworkAccess'), '  azureloganalytics/ztna:\\n    endpoint: ${DCR_ENDPOINT}\\n    client_id: ${CLIENT_ID}\\n    client_secret: ${CLIENT_SECRET}\\n    tenant_id: ${TENANT_ID}\\n    rule_id: ${ZTNA_DCR_ID}\\n    stream_name: ${ZTNA_DCR_STREAM}\\n    raw_log_field: body\\n    sending_queue:\\n      enabled: false\\n', '')]",
+    "mailExporterConf": "[if(parameters('secureE-MailGateway'), '  azureloganalytics/mail:\\n    endpoint: ${DCR_ENDPOINT}\\n    client_id: ${CLIENT_ID}\\n    client_secret: ${CLIENT_SECRET}\\n    tenant_id: ${TENANT_ID}\\n    rule_id: ${MAIL_DCR_ID}\\n    stream_name: ${MAIL_DCR_STREAM}\\n    raw_log_field: body\\n    sending_queue:\\n      enabled: false\\n', '')]",
+    "zeekExporterConf": "[if(parameters('intrusionDetectionSystem'), '  azureloganalytics/zeek:\\n    endpoint: ${DCR_ENDPOINT}\\n    client_id: ${CLIENT_ID}\\n    client_secret: ${CLIENT_SECRET}\\n    tenant_id: ${TENANT_ID}\\n    rule_id: ${ZEEK_DCR_ID}\\n    stream_name: ${ZEEK_DCR_STREAM}\\n    raw_log_field: body\\n    sending_queue:\\n      enabled: false\\n', '')]",
+    "proxyPipelineConf": "[if(parameters('secureWebGateway'), '    logs/proxy:\\n      receivers: [kafka/proxy]\\n      processors: [transform/proxy]\\n      exporters: [azureloganalytics/proxy]\\n', '')]",
+    "authPipelineConf": "[if(parameters('identity'), '    logs/auth:\\n      receivers: [kafka/auth]\\n      processors: [transform/auth]\\n      exporters: [azureloganalytics/auth]\\n', '')]",
+    "firewallPipelineConf": "[if(parameters('firewall'), '    logs/firewall:\\n      receivers: [kafka/firewall]\\n      processors: [transform/firewall]\\n      exporters: [azureloganalytics/firewall]\\n', '')]",
+    "ztnaPipelineConf": "[if(parameters('zeroTrustNetworkAccess'), '    logs/ztna:\\n      receivers: [kafka/ztna]\\n      processors: [transform/ztna]\\n      exporters: [azureloganalytics/ztna]\\n', '')]",
+    "mailPipelineConf": "[if(parameters('secureE-MailGateway'), '    logs/mail:\\n      receivers: [kafka/mail]\\n      processors: [transform/mail]\\n      exporters: [azureloganalytics/mail]\\n', '')]",
+    "zeekPipelineConf": "[if(parameters('intrusionDetectionSystem'), '    logs/zeek:\\n      receivers: [kafka/zeek]\\n      processors: [transform/zeek]\\n      exporters: [azureloganalytics/zeek]\\n', '')]",
+    "proxyProcessorConf": "[if(parameters('secureWebGateway'), '  transform/proxy:\\n    log_statements:\\n      - context: log\\n        statements:\\n          - set(body[\"timestamp\"], body[\"timestamp\"])\\n', '')]",
+    "authProcessorConf": "[if(parameters('identity'), '  transform/auth:\\n    log_statements:\\n      - context: log\\n        statements:\\n          - set(body[\"event_time\"], body[\"time\"])\\n          - delete_key(body, \"time\")\\n', '')]",
+    "firewallProcessorConf": "[if(parameters('firewall'), '  transform/firewall:\\n    log_statements:\\n      - context: log\\n        statements:\\n          - set(body[\"timestamp\"], body[\"timestamp\"])\\n', '')]",
+    "ztnaProcessorConf": "[if(parameters('zeroTrustNetworkAccess'), '  transform/ztna:\\n    log_statements:\\n      - context: log\\n        statements:\\n          - set(body[\"timestamp\"], body[\"timestamp\"])\\n', '')]",
+    "mailProcessorConf": "[if(parameters('secureE-MailGateway'), '  transform/mail:\\n    log_statements:\\n      - context: log\\n        statements:\\n          - set(body[\"timestamp\"], body[\"timestamp\"])\\n', '')]",
+    "zeekProcessorConf": "[if(parameters('intrusionDetectionSystem'), '  transform/zeek:\\n    log_statements:\\n      - context: log\\n        statements:\\n          - set(body[\"timestamp\"], body[\"timestamp\"])\\n', '')]",
     "otelReceivers": "[concat('receivers:\\n', variables('proxyReceiverConf'), variables('authReceiverConf'), variables('firewallReceiverConf'), variables('ztnaReceiverConf'), variables('mailReceiverConf'), variables('zeekReceiverConf'))]",
+    "otelProcessors": "[concat('processors:\\n', variables('proxyProcessorConf'), variables('authProcessorConf'), variables('firewallProcessorConf'), variables('ztnaProcessorConf'), variables('mailProcessorConf'), variables('zeekProcessorConf'))]",
     "otelExporters": "[concat('exporters:\\n', variables('proxyExporterConf'), variables('authExporterConf'), variables('firewallExporterConf'), variables('ztnaExporterConf'), variables('mailExporterConf'), variables('zeekExporterConf'))]",
     "otelPipelines": "[concat('service:\\n  pipelines:\\n', variables('proxyPipelineConf'), variables('authPipelineConf'), variables('firewallPipelineConf'), variables('ztnaPipelineConf'), variables('mailPipelineConf'), variables('zeekPipelineConf'))]",
-    "otelConfig": "[concat(variables('otelReceivers'), '\\n', variables('otelExporters'), '\\n', variables('otelPipelines'))]",
+    "otelConfig": "[concat(variables('otelReceivers'), '\\n', variables('otelProcessors'), '\\n', variables('otelExporters'), '\\n', variables('otelPipelines'))]",
     "scalingRule": {
       "name": "cpu",
       "custom": {

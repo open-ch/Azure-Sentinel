@@ -177,6 +177,10 @@
           {
             "name": "RawData",
             "type": "string"
+          },
+          {
+            "name": "TimeGenerated",
+            "type": "datetime"
           }
         ],
         "transformKql": "source"

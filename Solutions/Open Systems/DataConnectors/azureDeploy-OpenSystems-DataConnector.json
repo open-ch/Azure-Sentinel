@@ -173,6 +173,12 @@
             "type": "string"
           }
         ],
+        "streamColumns": [
+          {
+            "name": "RawData",
+            "type": "string"
+          }
+        ],
         "transformKql": "source"
       },
       {
@@ -264,7 +270,13 @@
             "type": "string"
           }
         ],
-        "transformKql": "source | extend TimeGenerated = todatetime(event_time)"
+        "streamColumns": [
+          {
+            "name": "RawData",
+            "type": "string"
+          }
+        ],
+        "transformKql": "source | extend data = parse_json(RawData) | extend TimeGenerated = todatetime(data.event_time), login = tostring(data.login), remoteAddress = data.remoteAddress, result = tostring(data.result), event_time = todatetime(data.event_time), error = tostring(data.error) | project TimeGenerated, login, remoteAddress, result, event_time, error"
       },
       {
         "name": "Proxy",
@@ -365,7 +377,7 @@
         "dataCollectionEndpointId": "[resourceId('Microsoft.Insights/dataCollectionEndpoints', parameters('dceName'))]",
         "streamDeclarations": {
           "[concat('Custom-OpenSystems', variables('logTypes')[copyIndex()].name, 'Logs')]": {
-            "columns": "[variables('logTypes')[copyIndex()].columns]"
+            "columns": "[if(contains(variables('logTypes')[copyIndex()], 'streamColumns'), variables('logTypes')[copyIndex()].streamColumns, variables('logTypes')[copyIndex()].columns)]"
           }
         },
         "destinations": {

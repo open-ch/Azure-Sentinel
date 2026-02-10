@@ -75,6 +75,13 @@
         "description": "Enable Intrusion Detection System logs ingestion."
       }
     },
+    "testRawData": {
+      "type": "bool",
+      "defaultValue": true,
+      "metadata": {
+        "description": "Enable test raw data table for testing purposes."
+      }
+    },
     "dceName": {
       "type": "string",
       "defaultValue": "opensystems-logs-api-sentinel",
@@ -153,6 +160,21 @@
   },
   "variables": {
     "logTypes": [
+      {
+        "name": "TestRawData",
+        "enabled": "[parameters('testRawData')]",
+        "columns": [
+          {
+            "name": "TimeGenerated",
+            "type": "datetime"
+          },
+          {
+            "name": "RawData",
+            "type": "string"
+          }
+        ],
+        "transformKql": "source"
+      },
       {
         "name": "Zeek",
         "enabled": "[parameters('intrusionDetectionSystem')]",
